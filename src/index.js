@@ -7,7 +7,7 @@ const path = require("path");
 
 const app = Express();
 
-app.use(Express.static(path.resolve(__dirname, "../frontend/build")));
+app.use(Express.static(path.resolve(__dirname, "../client/build")));
 
 setupMiddleware(app);
 
@@ -16,7 +16,7 @@ async function startApp() {
   setupRouter(app, db);
   // All other GET requests not handled before will return our React app
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
   app.listen(Config.port, () => {
     console.log("Server started at port", Config.port);
