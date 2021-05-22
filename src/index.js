@@ -7,20 +7,21 @@ const path = require("path");
 
 const app = Express();
 
+app.use(Express.static(path.join(__dirname, "..", "build")));
+app.use(Express.static("public"));
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "frontend/build", "index.html"));
+});
+
 setupMiddleware(app);
-
-// app.use(Express.static(path.resolve(__dirname, "../frontend/build")));
-// app.use(Express.static("../frontend/public"));
-
-app.use(Express.static(path.join(__dirname, "..", "frontend/build")));
-// app.use(Express.static("public"));
 
 async function startApp() {
   const db = await setupDatabase();
   setupRouter(app, db);
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.join(__dirname, "..", "frontend/build", "index.html"));
-  // });
+  app.use(Express.static(path.join(__dirname, "..", "build")));
+  app.use(Express.static("public"));
+
   app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "..", "frontend/build", "index.html"));
   });
