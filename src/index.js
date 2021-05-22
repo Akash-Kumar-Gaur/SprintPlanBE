@@ -10,7 +10,7 @@ const app = Express();
 setupMiddleware(app);
 
 app.use(Express.static(path.resolve(__dirname, "../frontend/build")));
-app.use(Express.static("build"));
+app.use(Express.static("../frontend/build"));
 
 async function startApp() {
   const db = await setupDatabase();
