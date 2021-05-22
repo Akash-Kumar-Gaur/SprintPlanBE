@@ -7,23 +7,14 @@ const path = require("path");
 
 const app = Express();
 
-app.use(Express.static(path.join(__dirname, "..", "build")));
-app.use(Express.static("public"));
-
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "frontend/build", "index.html"));
-});
-
+app.use(Express.static(path.resolve(__dirname, "../frontend/build")));
 setupMiddleware(app);
 
 async function startApp() {
   const db = await setupDatabase();
   setupRouter(app, db);
-  app.use(Express.static(path.join(__dirname, "..", "build")));
-  app.use(Express.static("public"));
-
-  app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "..", "frontend/build", "index.html"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
   app.listen(Config.port, () => {
     console.log("Server started at port", Config.port);
