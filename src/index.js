@@ -15,10 +15,10 @@ async function startApp() {
   const db = await setupDatabase();
   setupRouter(app, db);
   // All other GET requests not handled before will return our React app
-  app.get("/", (req, res) => {
-    const index = path.join(__dirname, "client/build", "index.html");
-    res.sendFile(index);
-  });
+  // app.get("/", (req, res) => {
+  //   const index = path.join(__dirname, "client/build", "index.html");
+  //   res.sendFile(index);
+  // });
   app.listen(Config.port, () => {
     console.log("Server started at port", Config.port);
   });

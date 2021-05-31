@@ -7,7 +7,7 @@ const createVotesValidator = require("../validators/create-votes");
 
 module.exports = (app, db) => {
   const router = new Router();
-  router.get("/testBE", function (req, res, next) {
+  router.get("/", function (req, res, next) {
     res.send("Backend is working fine !!!");
   });
   router.post("/polls", createPollsValidator, createPolls(db));
